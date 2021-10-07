@@ -6,11 +6,9 @@ var
 i : numerico
 nuevoid, indiceespaciovacio, honorario : numerico
 siono : logico
+pacientes : vector [PP] cadena
 Paciente : registro
 {
-	pacientesultimaconsulta : vector [PP] cadena
-	pacientesid: vector [PP] numerico
-	pacientesnombre : vector [PP] cadena
 	id : numerico
 	FdUC : cadena
 	direccion :cadena
@@ -18,6 +16,8 @@ Paciente : registro
 	medico : vector [PP] cadena
 	ems : cadena
 }
+
+
 ServicioMedico : registro
 {
 	
@@ -25,13 +25,10 @@ ServicioMedico : registro
 	traumatologia : cadena
 	oncologia : cadena
 }
+	medicos : vector [PP] cadena
 Medico : registro
 {
-	honorarios : vector [PP] numerico
-	medicos : vector [PP] cadena
 	nombre : cadena
-	medicoid : vector [PP] numerico
-	ServicioMedico : vector [PP] cadena
 	honorario : numerico
 	tratados : numerico
 	honorariostotal : numerico
@@ -39,6 +36,10 @@ Medico : registro
 inicio
 	cls()
 	i=1
+
+	pacientes[i]= Paciente
+	i= i + 1
+
 	Paciente.pacientesid [1] = 1 
 	Paciente.pacientesid [2] = 22
 	Paciente.pacientesid [3] = 23
@@ -58,8 +59,8 @@ inicio
 	si (siono == TRUE)
 	{
 		imprimir("introduzca su id \n")
-		leer (Paciente.pacientesid[i])
-		busqueda(Paciente.pacientesid[i])
+		leer (Paciente.id)
+		busqueda(pacientes[i])
 		mientras siono == TRUE
 		{
 			si  siono == TRUE
@@ -87,7 +88,9 @@ inicio
 		Paciente.pacientesnombre[indiceespaciovacio] = Paciente.nombre
 		Paciente.pacientesid[indiceespaciovacio] = nuevoid
 	}
-
+	i = 1
+	medicos[i] = Medico
+	i = i + 1
 	Medico.honorarios[1] = 420
 	Medico.honorarios[2] = 400
 	Medico.honorarios[3] = 325
