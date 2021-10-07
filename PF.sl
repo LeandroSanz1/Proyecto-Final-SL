@@ -9,6 +9,7 @@ siono : logico
 pacientes : vector [PP] cadena
 Paciente : registro
 {
+	nombre : cadena
 	id : numerico
 	FdUC : cadena
 	direccion :cadena
@@ -16,8 +17,6 @@ Paciente : registro
 	medico : vector [PP] cadena
 	ems : cadena
 }
-
-
 ServicioMedico : registro
 {
 	
@@ -28,6 +27,7 @@ ServicioMedico : registro
 	medicos : vector [PP] cadena
 Medico : registro
 {
+	id : numerico
 	nombre : cadena
 	honorario : numerico
 	tratados : numerico
@@ -40,18 +40,6 @@ inicio
 	pacientes[i]= Paciente
 	i= i + 1
 
-	Paciente.pacientesid [1] = 1 
-	Paciente.pacientesid [2] = 22
-	Paciente.pacientesid [3] = 23
-	Paciente.pacientesid [4] = 55
-	Paciente.pacientesid [5] = 32
-	Paciente.pacientesid [6] = 57
-	Paciente.pacientesnombre[1] = "pedro selc"
-	Paciente.pacientesnombre[2] = "juan garc"
-	Paciente.pacientesnombre[3] = "ivan sult"
-	Paciente.pacientesnombre[4] = "ramona schweits"
-	Paciente.pacientesnombre[5] = "pablo rema"
-	Paciente.pacientesnombre[6] = "sabrina polsk"
 	OrdenarBurbujaMejorada (Paciente.pacientesid)
 	imprimir (Paciente.pacientesid[i])
 	imprimir("ya estuvo en nuestro hospital? \n")
@@ -61,6 +49,7 @@ inicio
 		imprimir("introduzca su id \n")
 		leer (Paciente.id)
 		busqueda(pacientes[i])
+		imprimir(pacientes[i] "\n")
 		mientras siono == TRUE
 		{
 			si  siono == TRUE
@@ -68,20 +57,27 @@ inicio
 				i = 1
 				imprimir("estuvo mas veces en el hospital?\n")
 				leer(siono)
-				imprimir("indique su ultima consulta\n")
-				leer (Paciente.Fduc)
 				imprimir("quien fue su medico tratante?\n")
 				leer (Medico.nombre)
 				Paciente.medico [i] = Medico.nombre
 				i = i + 1
 			}
-			
+			i=1
 		}
 		sino
+			nuevoid = NuevoID()
+			indiceespaciovacio = BuscarEspacioVacio()
 			imprimir("introduzca su nombre \n")
-				leer(Paciente.nombre)
-		nuevoid = NuevoID()
-		indiceespaciovacio = BuscarEspacioVacio()
+			leer(Paciente.nombre)
+			BuscarEspacioVacio(pacientes[i])
+			pacientes[indiceespaciovacio] = Paciente.nombre
+			imprimir("introduzca su direccion\n")
+			leer(Paciente.direccion)
+			imprimir("introduzca un numero de telefono\n")
+			leer(Paciente.telefono)
+			imprimir("introduzca el area de consulta\n")
+			leer(Paciente.ems)
+		
 	}
 	si (indiceespaciovacio == -1)
 	{
@@ -91,43 +87,24 @@ inicio
 	i = 1
 	medicos[i] = Medico
 	i = i + 1
-	Medico.honorarios[1] = 420
-	Medico.honorarios[2] = 400
-	Medico.honorarios[3] = 325
-	Medico.honorarios[4] = 450
-	Medico.honorarios[5] = 555
-	Medico.medicos[1] = "valentin bakker"
-	Medico.medicos[2] = "agustin carrocera"
-	Medico.medicos[3] = "ginna galli"
-	Medico.medicos[4] = "leandro sanz"
-	Medico.medicos[5] = "silvia calan"
-	Medico.ServicioMedico[1] = "neurologia"
-	Medico.ServicioMedico[2] = "neurologia"
-	Medico.ServicioMedico[3] = "traumatologia"
-	Medico.ServicioMedico[4] =	"neurologia"
-	Medico.ServicioMedico[5] = "oftalmologia"
-	
-	
-	Medico.medicosid[1] = 1
-	Medico.medicosid[2] = 2
-	Medico.medicosid[3] = 3
-	Medico.medicosid[4] = 4
-	Medico.medicosid[5] = 5
 
 
+	i = 1
+	medicos[i] = Medico 
 	imprimir("introduzca su id: ")
-	leer(Medico.medicoid)
-	busqueda(Medico.medicoid)
+	leer(Medico.id)
+	busqueda(medicos[i])
 	imprimir("introduzca la cantidad de pacientes tratados este mes: ")
 	leer(Medico.tratados)
 	Medico.honorariostotal = (Medico.honorarios[i]*Medico.tratados)
 	imprimir ("\nsus honorarios de este mes son:", Medico.honorariostotal, "$")
 
+
 	//buscar indice y tomarlo para calcular honorarios mensuales
 
 fin
 
-subrutina BuscarEspacioVacio () retorna numerico
+subrutina BuscarEspacioVacio (arreglo:vector[PP]) retorna numerico
 var
 indiceespaciovacio : numerico
 inicio
@@ -167,7 +144,9 @@ inicio
 		i = i + 1
 	}
 fin
+
 //busca un numero dividiendo en dos el vector sucesivamente hasta encontrarlo
+
 subrutina busqueda (ref arreglo : vector [PP] numerico; DatoBuscado : numerico) retorna numerico
 var
 	der, izq,indiceCentral, indiceElemento : numerico
