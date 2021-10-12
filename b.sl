@@ -4,16 +4,17 @@ PP = 50
 var
 
 i : numerico
-nuevoid, indiceespaciovacio, honorario, DatoBuscado : numerico
+nuevoid, indiceespaciovacio, honorario : numerico
 siono : logico
-pacientes : vector [PP] cadena
-Paciente : vector[PP] registro
+pacientes : vector [PP] Paciente
+Paciente : registro
 {
 	nombre : cadena
 	id : numerico
 	FdUC : cadena
 	direccion :cadena
 	telefono : cadena
+	medico : vector [PP] cadena
 	ems : cadena
 }
 ServicioMedico : registro
@@ -23,7 +24,8 @@ ServicioMedico : registro
 	traumatologia : cadena
 	oncologia : cadena
 }
-Medico : vector [PP] registro
+	medicos : vector [PP] cadena
+Medico : registro
 {
 	id : numerico
 	nombre : cadena
@@ -35,15 +37,16 @@ inicio
 	cls()
 	i=1
 
-	pacientes[i]= Paciente
+	pacientes[i] = Paciente
+	i= i + 1
 
 	imprimir("ya estuvo en nuestro hospital? \n")
 	leer(siono)
 	si (siono == TRUE)
 	{
 		imprimir("introduzca su id \n")
-		leer (DatoBuscado)
-		busqueda2(Paciente[i].id)
+		leer (Paciente.id)
+		busqueda(pacientes[i])
 		imprimir(pacientes[i] "\n")
 		mientras siono == TRUE
 		{
@@ -62,6 +65,11 @@ inicio
 		sino
 			nuevoid = NuevoID()
 			indiceespaciovacio = BuscarEspacioVacio()
+				si (indiceespaciovacio == -1)
+				{
+					Paciente.pacientesnombre[indiceespaciovacio] = Paciente.nombre
+					Paciente.pacientesid[indiceespaciovacio] = nuevoid
+				}
 			imprimir("introduzca su nombre \n")
 			leer(Paciente.nombre)
 			BuscarEspacioVacio(pacientes[i])
@@ -74,31 +82,26 @@ inicio
 			leer(Paciente.ems)
 		
 	}
-	si (indiceespaciovacio == -1)
-	{
-		Paciente.pacientesnombre[indiceespaciovacio] = Paciente.nombre
-		Paciente.pacientesid[indiceespaciovacio] = nuevoid
-	}
 	i = 1
 	medicos[i] = Medico
 	i = i + 1
 
 
 	i = 1
-	Medico[i] = Medico 
+	medicos[i] = Medico 
 	imprimir("introduzca su id: ")
-	leer(Medico[i].id)
-	busqueda(Medico[i].id)
+	leer(Medico.id)
+	busqueda(medicos[i])
 	imprimir("introduzca la cantidad de pacientes tratados este mes: ")
 	leer(Medico.tratados)
-	Medico.honorariostotal = (Medico.honorarios*Medico.tratados)
+	Medico.honorariostotal = (Medico.honorarios[i]*Medico.tratados)
 	imprimir ("\nsus honorarios de este mes son:", Medico.honorariostotal, "$")
 
 	//buscar indice y tomarlo para calcular honorarios mensuales
 
 fin
 
-subrutina BuscarEspacioVacio (arreglo:vector[PP]) retorna numerico
+subrutina BuscarEspacioVacio (arreglo : vector [PP] numerico) retorna numerico
 var
 indiceespaciovacio : numerico
 inicio
@@ -141,6 +144,36 @@ fin
 
 //busca un numero dividiendo en dos el vector sucesivamente hasta encontrarlo
 
+subrutina busqueda (ref arreglo : vector [PP] numerico; DatoBuscado : numerico) retorna numerico
+var
+	der, izq,indiceCentral, indiceElemento : numerico
+	encontrado : logico
+inicio
+	izq = 1
+	der = PP
+	encontrado = FALSE
+	indiceElemento = 0
+
+	OrdenarBurbujaMejorada(arreglo)
+
+	mientras (izq <= der and not(encontrado))
+	{
+		indiceCentral = int((der + izq)/2)
+		si(arreglo[indiceCentral] == DatoBuscado)
+		{
+			encontrado = TRUE
+			indiceElemento = indiceCentral
+		sino
+			si(DatoBuscado <= arreglo[indiceCentral])
+			{
+				der = indiceCentral - 1
+			sino
+				izq = indiceCentral + 1
+			}
+		}
+	}
+	retorna(indiceElemento)
+fin 
 
 /*
  la funcion tiene que recibir un arreglo,
@@ -163,27 +196,4 @@ inicio
 		}
 	}
 retorna (idmasgrande + 1)
-
 fin	
-
-
-subrutina busqueda(ref array : vector [N] numerico; DatoBuscado : numerico) retorna numerico
-var
-
-	j, indiceElemento : numerico
-	encontrado : logico
-inicio
-	j = 1
-	encontrado = FALSE
-	indiceElemento = 0
-	mientras (j <= N and not(encontrado))
-	{
-		si(array[j] == DatoBuscado)
-		{
-			encontrado = TRUE
-			indiceElemento = j
-		}
-		j = j + 1
-	}
-	retorna(indiceElemento)
-fin
