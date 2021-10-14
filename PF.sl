@@ -14,14 +14,14 @@ Pacientes : vector [PP] registro
 	direccion :cadena
 	telefono : cadena
 }
-ServicioMedico : registro
+ServiciosMedicos : registro
 {
 	
 	pediatria : cadena
 	neurologia : cadena
 	oncologia : cadena
 }
-Medico : vector [PP] registro
+Medicos : vector [PP] registro
 {
 	id : numerico
 	nombre : cadena
@@ -32,25 +32,13 @@ Medico : vector [PP] registro
 inicio
 	cls()
 	i=1
-
-	Medico[1].nombre = "Leandro Sanz"
-	Medico[2].nombre = "Agustin carrocera"
-	Medico[3].nombre = "valentin bakker"
-	Medico[4].nombre = "Ginna galli"
-	Medico[5].nombre = "Dante Jorgensen"
-
-	Medico[1].id = 1
-	Medico[2].id = 2
-	Medico[3].id = 3
-	Medico[4].id = 4
-	Medico[5].id = 5
-
-	Medico[1].honorario = 440
-	Medico[2].honorario = 430
-	Medico[3].honorario = 420
-	Medico[4].honorario = 360
-	Medico[5].honorario = 400
-
+	inicializacionMedicos()
+// menu 
+//	1 - buscar paciente
+//  2 - reporte Mensual
+//		- visita del paciente
+//		- MEdicos tatantes por paciente 
+//  9 - Salir 
 
 	imprimir("ya estuvo en nuestro hospital? \n")
 	leer(siono)
@@ -58,7 +46,16 @@ inicio
 	{
 		imprimir("introduzca su id \n")
 		leer (IDBuscado)
-		busqueda2(Pacientes[i].id)
+		//buscar el indice del paciente en Pacientes por el IDBuscado
+
+		indicePaciente = buscarPaciente(IDBuscado)
+		si indicePaciente == false
+		{//si no lo ecuentra mostrar crear paciente
+
+		}sino{
+
+		}
+
 		imprimir(Pacientes[i] "\n")
 		mientras siono == TRUE
 		{
@@ -69,7 +66,9 @@ inicio
 				leer(siono)
 				imprimir("quien fue su medico tratante?\n")
 				imprimir("seleccione al medico correspondiente al numero de abajo\n")
-				imprimir("Leandro Sanz, Agustin carrocera, valentin bakker, Ginna galli, Dante Jorgensen\n")
+				//recorrer el vector de medicos y mostrarlos por pantall
+
+				imprimir("1 - Leandro Sanz, 2 - Agustin carrocera, valentin bakker, Ginna galli, Dante Jorgensen\n")
 				imprimir("		1				2					3			4				5")
 				leer (Medico.id)
 				
@@ -78,6 +77,7 @@ inicio
 			i=1
 		}
 		sino
+		// crear paciente
 			nuevoid = NuevoID()
 			indiceespaciovacio = BuscarEspacioVacio()
 				si (indiceespaciovacio == -1)
@@ -94,13 +94,8 @@ inicio
 			imprimir("introduzca un numero de telefono\n")
 			leer(Paciente[i].telefono)
 			imprimir("introduzca el area de consulta\n")
-			leer(Paciente[i])
-		
+			leer(Paciente[i])		
 	}
-	
-	i = 1
-	i = i + 1
-
 
 	i = 1
 	imprimir("introduzca su id: ")
@@ -202,4 +197,25 @@ inicio
 		j = j + 1
 	}
 	retorna(indiceElemento)
+fin
+subrutina inicializacionMedicos()
+	Medicos[1].nombre = "Leandro Sanz"
+	Medicos[1].id = 1
+	Medicos[1].honorario = 440
+
+	Medicos[2].nombre = "Agustin carrocera"
+	Medicos[2].id = 2
+	Medicos[2].honorario = 430
+	
+	Medicos[3].nombre = "valentin bakker"
+	Medicos[3].id = 3
+	Medicos[3].honorario = 420
+	
+	Medicos[4].nombre = "Ginna galli"
+	Medicos[4].id = 4
+	Medicos[4].honorario = 360
+
+	Medicos[5].nombre = "Dante Jorgensen"
+	Medicos[5].id = 5
+	Medicos[5].honorario = 400
 fin
