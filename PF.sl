@@ -4,23 +4,21 @@ PP = 50
 var
 
 i : numerico
-nuevoid, indiceespaciovacio, honorario, DatoBuscado : numerico
+nuevoid, indiceespaciovacio, honorario, IDBuscado : numerico
 siono : logico
-pacientes : vector [PP] cadena
-Paciente : vector[PP] registro
+Pacientes : vector [PP] registro
 {
 	nombre : cadena
 	id : numerico
 	FdUC : cadena
 	direccion :cadena
 	telefono : cadena
-	ems : cadena
 }
 ServicioMedico : registro
 {
 	
 	pediatria : cadena
-	traumatologia : cadena
+	neurologia : cadena
 	oncologia : cadena
 }
 Medico : vector [PP] registro
@@ -35,16 +33,33 @@ inicio
 	cls()
 	i=1
 
-	pacientes[i]= Paciente
+	Medico[1].nombre = "Leandro Sanz"
+	Medico[2].nombre = "Agustin carrocera"
+	Medico[3].nombre = "valentin bakker"
+	Medico[4].nombre = "Ginna galli"
+	Medico[5].nombre = "Dante Jorgensen"
+
+	Medico[1].id = 1
+	Medico[2].id = 2
+	Medico[3].id = 3
+	Medico[4].id = 4
+	Medico[5].id = 5
+
+	Medico[1].honorario = 440
+	Medico[2].honorario = 430
+	Medico[3].honorario = 420
+	Medico[4].honorario = 360
+	Medico[5].honorario = 400
+
 
 	imprimir("ya estuvo en nuestro hospital? \n")
 	leer(siono)
 	si (siono == TRUE)
 	{
 		imprimir("introduzca su id \n")
-		leer (DatoBuscado)
-		busqueda2(Paciente[i].id)
-		imprimir(pacientes[i] "\n")
+		leer (IDBuscado)
+		busqueda2(Pacientes[i].id)
+		imprimir(Pacientes[i] "\n")
 		mientras siono == TRUE
 		{
 			si  siono == TRUE
@@ -53,8 +68,11 @@ inicio
 				imprimir("estuvo mas veces en el hospital?\n")
 				leer(siono)
 				imprimir("quien fue su medico tratante?\n")
-				leer (Medico.nombre)
-				Paciente.medico [i] = Medico.nombre
+				imprimir("seleccione al medico correspondiente al numero de abajo\n")
+				imprimir("Leandro Sanz, Agustin carrocera, valentin bakker, Ginna galli, Dante Jorgensen\n")
+				imprimir("		1				2					3			4				5")
+				leer (Medico.id)
+				
 				i = i + 1
 			}
 			i=1
@@ -62,30 +80,29 @@ inicio
 		sino
 			nuevoid = NuevoID()
 			indiceespaciovacio = BuscarEspacioVacio()
+				si (indiceespaciovacio == -1)
+				{
+					Paciente[i].[indiceespaciovacio] = Pacientes[i].nombre
+					Paciente[i].id[indiceespaciovacio] = nuevoid
+				}
 			imprimir("introduzca su nombre \n")
-			leer(Paciente.nombre)
-			BuscarEspacioVacio(pacientes[i])
-			pacientes[indiceespaciovacio] = Paciente.nombre
+			leer(Pacientes[i].nombre)
+			BuscarEspacioVacio(Pacientes[i])
+			Pacientes[indiceespaciovacio] = Pacientes[i].nombre
 			imprimir("introduzca su direccion\n")
 			leer(Paciente.direccion)
 			imprimir("introduzca un numero de telefono\n")
-			leer(Paciente.telefono)
+			leer(Paciente[i].telefono)
 			imprimir("introduzca el area de consulta\n")
-			leer(Paciente.ems)
+			leer(Paciente[i])
 		
 	}
-	si (indiceespaciovacio == -1)
-	{
-		Paciente.pacientesnombre[indiceespaciovacio] = Paciente.nombre
-		Paciente.pacientesid[indiceespaciovacio] = nuevoid
-	}
+	
 	i = 1
-	medicos[i] = Medico
 	i = i + 1
 
 
 	i = 1
-	Medico[i] = Medico 
 	imprimir("introduzca su id: ")
 	leer(Medico[i].id)
 	busqueda(Medico[i].id)
@@ -104,7 +121,7 @@ indiceespaciovacio : numerico
 inicio
 desde i = 1 hasta PP + 1
 {
-	si(Paciente.pacientesid[i] == 0)
+	si(Paciente[i].id == 0)
 	{
 		indiceespaciovacio = i
 		sino
@@ -139,7 +156,6 @@ inicio
 	}
 fin
 
-//busca un numero dividiendo en dos el vector sucesivamente hasta encontrarlo
 
 
 /*
@@ -167,7 +183,7 @@ retorna (idmasgrande + 1)
 fin	
 
 
-subrutina busqueda(ref array : vector [N] numerico; DatoBuscado : numerico) retorna numerico
+subrutina busqueda(ref array : vector [PP] numerico; DatoBuscado : numerico) retorna numerico
 var
 
 	j, indiceElemento : numerico
@@ -176,7 +192,7 @@ inicio
 	j = 1
 	encontrado = FALSE
 	indiceElemento = 0
-	mientras (j <= N and not(encontrado))
+	mientras (j <= PP and not(encontrado))
 	{
 		si(array[j] == DatoBuscado)
 		{
