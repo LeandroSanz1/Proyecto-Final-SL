@@ -73,6 +73,7 @@ cls()
         
     }
     si eleccion == 2
+	//1 = lista / 2 = lista / 3 = lista / 4 = lista
     {
 		imprimir("1 - visitas del paciente\n2 - Medicos Tratantes Por Paciente\n3 - Pacientes Atendidos Por Servicio Medico\n4 - Pacientes Atendidos Por Medico\n5 - Lista De Honorarios")
 		leer(eleccion)
