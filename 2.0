@@ -19,7 +19,7 @@ var
 {
 	nombre : cadena
 	ids :vector [PP] numerico
-	FdUC : cadena
+	vecesenhospital : numerico
 	direccion :cadena
 	telefono : cadena
 	medicotratante : cadena
@@ -31,12 +31,13 @@ var
 	honorario : numerico
 	pacientespormes : numerico
 	honorariostotal : numerico
+	sm : cadena
 }
     ServiciosMedicos : vector [PP] registro
 {
 	pediatria : cadena
 	neurologia : cadena
-	oncologia : cadena
+	traumatologia : cadena
 }
 
 inicio
@@ -73,21 +74,21 @@ cls()
         
     }
     si eleccion == 2
-	//1 = lista / 2 = lista / 3 = lista / 4 = lista
+	// 3 = lista / 4 = lista
     {
 		imprimir("1 - visitas del paciente\n2 - Medicos Tratantes Por Paciente\n3 - Pacientes Atendidos Por Servicio Medico\n4 - Pacientes Atendidos Por Medico\n5 - Lista De Honorarios")
 		leer(eleccion)
 		si eleccion == 1
 		{
-
+			visitasdelpaciente ()
 		}
 		si eleccion == 2
 		{
-
+			medicostratantes ()
 		}
 		si eleccion == 3
 		{
-
+			pacientestratadosporServicioMedico()
 		}
 		si eleccion == 4
 		{
@@ -114,53 +115,75 @@ subrutina inicializacionMedicos()
 
     Medicos[1].nombre = "Leandro Sanz"
 	Medicos[1].id = 1
-	Medicos[1].honorario = 440
+	Medicos[1].honorario = 400
 	Medicos[1].pacientespormes = random(200)
+	Medicos[1].sm = "traumatologia"
+
 
 	Medicos[2].nombre = "Agustin carrocera"
 	Medicos[2].id = 2
 	Medicos[2].honorario = 430
-	Medicos[1].pacientespormes = random(200)
-	
+	Medicos[2].pacientespormes = random(100)
+	Medicos[2].sm = "neurologia"
+
+
 	Medicos[3].nombre = "valentin bakker"
 	Medicos[3].id = 3
 	Medicos[3].honorario = 420
-	Medicos[1].pacientespormes = random(200)
+	Medicos[3].pacientespormes = random(100)
+	Medicos[3].sm = "neurologia"
 
 	Medicos[4].nombre = "Ginna galli"
 	Medicos[4].id = 4
 	Medicos[4].honorario = 360
-	Medicos[1].pacientespormes = random(200)
+	Medicos[4].pacientespormes = random(200)
+	Medicos[4].sm = "pediatria"
 
 	Medicos[5].nombre = "Dante Jorgensen"
 	Medicos[5].id = 5
 	Medicos[5].honorario = 400
-	Medicos[1].pacientespormes = random(200)
+	Medicos[5].pacientespormes = random(200)
+	Medicos[5].sm = "pediatria"
 
     fin
 
 subrutina visitasdelpaciente ()
-
+	var
+	inicio
+	desde i = 1 hasta PP
+	{
+		Paciente[i].vecesenhospital = random(30)
+		imprimir("introduzca el ID del paciente"\n)
+		leer(IDBuscado)
+		BuscaIDs(IDBuscado)
+		imprmir("Este paciente estuvo ", Pacientes[i].vecesenhospital, "veces este mes en el hospital\n")
+		i = i + 1
+	}
     fin
 
 subrutina medicostratantes ()
-
+	var
+	inicio
+	desde i = 1 hasta PP
+	{
+		Pacientes[i].medicostratantes = Medicos[random(5)]
+		imprimir(Paciente[i].medicostratantes"\n")
+		i = i + 1
+	}
     fin
 
 subrutina pacientestratadospormedico()
+	var
+	inicio
 
     fin
 
 subrutina pacientestratadosporServicioMedico ()
+	var
+	inicio
 
     fin
 
-subrutina medicosxpaciente()
-	var
-	
-	inicio
-    
-	fin
 
 subrutina listahonorarios()
 	var
@@ -173,6 +196,7 @@ subrutina listahonorarios()
 			imprimir ("Cantidad de Pacientes tratados este mes: ", Medicos[i].pacientespormes\n)
 			Medicos[i].honorariostotal=Medicos[i].honorario*Medicos[i].pacientespormes
 			imprimir (Medicos[i].honorariostotal)
+			i = i + 1
 		}
 
     fin
