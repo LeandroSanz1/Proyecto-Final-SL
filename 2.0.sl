@@ -280,7 +280,7 @@ subrutina CrearPaciente ()
 	indiceespaciovacio : numerico
     inicio
     	
-	    indiceespaciovacio = BuscarEspacioVacio()
+	    indiceespaciovacio = BuscarEspacioVacio()//tipos de datos no coinciden
     	si (indiceespaciovacio == -1)
     	{
 			imprmir("no hay lugar\n")
@@ -293,7 +293,6 @@ subrutina CrearPaciente ()
 			leer(Paciente[indiceespaciovacio].direccion)
 			imprimir("introduzca un numero de telefono\n")
 			leer(Paciente[indiceespaciovacio].telefono)
-
 		}   
        
 		retorna()            
