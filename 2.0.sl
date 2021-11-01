@@ -78,7 +78,7 @@ cls()
     si (eleccion == 2)
 	// 3 = lista / 4 = lista
     {
-		imprimir("1 - visitas del paciente\n2 - Medicos Tratantes Por Paciente\n3 - Pacientes Atendidos Por Servicio Medico\n4 - Pacientes Atendidos Por Medico\n5 - Lista De Honorarios")
+		imprimir("1 - visitas del paciente\n2 - Medicos Tratantes Por Paciente\n3 - Pacientes Atendidos Por Servicio Medico\n4 - Pacientes Atendidos Por Medico\n5 - Lista De Honorarios\n")
 		leer(eleccion)
 		si (eleccion == 1)
 		{
@@ -171,7 +171,7 @@ subrutina visitasdelpaciente ()
 		imprimir("Este paciente estuvo ", Pacientes[i].vecesenhospital, "veces este mes en el hospital\n")
 		i = i + 1
 	}
-    fin
+	fin
 
 subrutina medicostratantes ()
 	var
@@ -283,18 +283,16 @@ subrutina CrearPaciente ()
 	    indiceespaciovacio = BuscarEspacioVacio()
     	si (indiceespaciovacio == -1)
     	{
-			imprmir("no hay lugar\n")
+			imprimir("no hay lugar\n")
 			sino
 				Pacientes[indiceespaciovacio].id = NuevoID()
 				imprimir("introduzca su nombre \n")
 				leer(Pacientes[indiceespaciovacio].nombre)
 				imprimir("introduzca su direccion\n")
-				leer(Paciente[indiceespaciovacio].direccion)
+				leer(Pacientes[indiceespaciovacio].direccion)
 				imprimir("introduzca un numero de telefono\n")
-				leer(Paciente[indiceespaciovacio].telefono)
+				leer(Pacientes[indiceespaciovacio].telefono)
 		}   
-       
-		retorna()            
 fin
 
 subrutina NuevoID () retorna numerico
@@ -302,11 +300,11 @@ subrutina NuevoID () retorna numerico
     idmasgrande : numerico
     inicio
     	idmasgrande = 0
-    	desde i = 1 hasta PP + 1 
+    	desde i = 1 hasta PP
     	{
-    		si(Paciente.pacientesid[i] > idmasgrande)
+    		si(Pacientes[i].id > idmasgrande)
     		{
-    			idmasgrande = Pacientes[i].ids
+    			idmasgrande = Pacientes[i].id
     			i = i + 1
     		}
     	}
@@ -318,7 +316,7 @@ subrutina BuscarEspacioVacio () retorna numerico
 var
     indiceespaciovacio : numerico
 inicio
-    desde i = 1 hasta PP + 1
+    desde i = 1 hasta PP 
     {
 	    si(Pacientes[i].id == 0)
     	{
