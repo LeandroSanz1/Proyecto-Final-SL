@@ -242,13 +242,13 @@ subrutina listahonorarios()
 	i : numerico
 	inicio
 		inicializacionMedicos()
-		desde (i = 1 hasta i = 6)
+		desde i = 1 hasta 6
 		{
-			imprimir (Medicos[i].nombre"\n")
-			imprimir (Medicos[i].honorario"\n")
-			imprimir ("Cantidad de Pacientes tratados este mes: ", Medicos[i].pacientespormes"\n")
+			imprimir (Medicos[i].nombre, "\n")
+			imprimir (Medicos[i].honorario, "\n")
+			imprimir ("Cantidad de Pacientes tratados este mes: ", Medicos[i].pacientespormes, "\n")
 			Medicos[i].honorariostotal=Medicos[i].honorario*Medicos[i].pacientespormes
-			imprimir (Medicos[i].honorariostotal"\n")
+			imprimir (Medicos[i].honorariostotal, "\n")
 			i = i + 1
 		}
 
@@ -280,13 +280,12 @@ subrutina CrearPaciente ()
 	indiceespaciovacio : numerico
     inicio
     	
-	    BuscarEspacioVacio(Pacientes[i].id)//tipos de datos no coinciden
+	    indiceespaciovacio = BuscarEspacioVacio()
     	si (indiceespaciovacio == -1)
     	{
 			imprmir("no hay lugar\n")
 			sino
 				Pacientes[indiceespaciovacio].id = NuevoID()
-
 				imprimir("introduzca su nombre \n")
 				leer(Pacientes[indiceespaciovacio].nombre)
 				imprimir("introduzca su direccion\n")
@@ -315,13 +314,13 @@ subrutina NuevoID () retorna numerico
 
 fin	
 
-subrutina BuscarEspacioVacio (arreglo:vector[PP]numerico) retorna numerico
+subrutina BuscarEspacioVacio () retorna numerico
 var
     indiceespaciovacio : numerico
 inicio
     desde i = 1 hasta PP + 1
     {
-	    si(Paciente[i].id == 0)
+	    si(Pacientes[i].id == 0)
     	{
     		indiceespaciovacio = i
     		sino
