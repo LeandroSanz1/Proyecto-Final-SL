@@ -280,7 +280,7 @@ subrutina CrearPaciente ()
 	indiceespaciovacio : numerico
     inicio
     	
-	    indiceespaciovacio = BuscarEspacioVacio(Pacientes[indiceespaciovacio].id)
+	    indiceespaciovacio = BuscarEspacioVacio(Pacientes[i].id)
     	si (indiceespaciovacio == -1)
     	{
 			imprmir("no hay lugar\n")

@@ -11,7 +11,7 @@ const
     PP = 50
 
 var
-    i, nuevoid, indiceespaciovacio, IDBuscado, indicePaciente : numerico
+    i, nuevoid, IDBuscado, indicePaciente : numerico
     eleccion : numerico 
     siono : logico
 
@@ -56,7 +56,7 @@ cls()
 //      4	- pacientes mes por medico
 //      5	- lista de honorarios
  
-// mientras no se selecciones salir sigue ejecutandose 
+// mientras no se seleccione salir sigue ejecutandose 
 	mientras (eleccion <> 9)
 	{
     imprimir("1 - Buscar Paciente\n2 - Reporte Mensual\n")
@@ -280,19 +280,19 @@ subrutina CrearPaciente ()
 	indiceespaciovacio : numerico
     inicio
     	
-	    indiceespaciovacio = BuscarEspacioVacio()//tipos de datos no coinciden
+	    BuscarEspacioVacio(Pacientes[i].id)//tipos de datos no coinciden
     	si (indiceespaciovacio == -1)
     	{
 			imprmir("no hay lugar\n")
 			sino
-			Pacientes[indiceespaciovacio].id = NuevoID()
-			
-			imprimir("introduzca su nombre \n")
-			leer(Pacientes[indiceespaciovacio].nombre)
-			imprimir("introduzca su direccion\n")
-			leer(Paciente[indiceespaciovacio].direccion)
-			imprimir("introduzca un numero de telefono\n")
-			leer(Paciente[indiceespaciovacio].telefono)
+				Pacientes[indiceespaciovacio].id = NuevoID()
+
+				imprimir("introduzca su nombre \n")
+				leer(Pacientes[indiceespaciovacio].nombre)
+				imprimir("introduzca su direccion\n")
+				leer(Paciente[indiceespaciovacio].direccion)
+				imprimir("introduzca un numero de telefono\n")
+				leer(Paciente[indiceespaciovacio].telefono)
 		}   
        
 		retorna()            
