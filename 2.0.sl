@@ -1,6 +1,6 @@
 const
     PP = 50
-medicotratante
+
 var
     i, nuevoid, IDBuscado, indicePaciente : numerico
     eleccion1, eleccion2, eleccion3  : numerico 
@@ -21,7 +21,7 @@ var
 	id : numerico
 	nombre : cadena
 	honorario : numerico
-	pacientespormes : numerico
+	pacientespormes : cadena
 	honorariostotal : numerico
 	sm : cadena
 }
@@ -115,7 +115,7 @@ inicio
 	Pacientes[1].direccion = "pesea 2233"
 	Pacientes[1].telefono = 2235793123
 	Pacientes[1].FdUC = "3/11/21"
-	Pacientes[1].medicostratantes = Medicos[1].nombre
+	Pacientes[1].medicostratantes[1] = Medicos[1].nombre
 	Pacientes[1].vecesenhospital = 2
 
 	Pacientes[2].nombre = "pedro"
@@ -123,7 +123,7 @@ inicio
 	Pacientes[2].direccion = "Arenales 4235"
 	Pacientes[2].telefono = 2234456430
 	Pacientes[2].FdUC = "11/3/21"
-	Pacientes[2].medicostratantes = Medicos[4].nombre
+	Pacientes[2].medicostratantes[1] = Medicos[4].nombre
 	Pacientes[2].vecesenhospital = 1
 
 	Pacientes[3].nombre = "Leonel"
@@ -131,7 +131,8 @@ inicio
 	Pacientes[3].direccion = "alsina 3321"
 	Pacientes[3].telefono = 2231145764
 	Pacientes[3].FdUC = "31/10/21"
-	Pacientes[3].medicostratantes[2] = Medicos[3].nombre, Medicos[1]
+	Pacientes[3].medicostratantes[1] = Medicos[3].nombre
+	Pacientes[3].medicostratantes[2] = Medicos[1].nombre
 	Pacientes[3].vecesenhospital = 8
 
 	Pacientes[4].nombre = "julian"
@@ -140,14 +141,15 @@ inicio
 	Pacientes[4].telefono = 2234611234
 	Pacientes[4].FdUC = "2/11/21"
 	Pacientes[4].medicostratantes[1] = Medicos[2].nombre
-    Pacientes[4].vecesenhospital = 3
+	Pacientes[4].vecesenhospital = 3
 
 	Pacientes[5].nombre = "javier"
 	Pacientes[5].id = 5
 	Pacientes[5].direccion = "Santiago del Estero 3346"
 	Pacientes[5].telefono = 2234523563
 	Pacientes[5].FdUC = "3/5/21"
-	Pacientes[5].medicostratantes[1, 2] = Medicos[1].nombre, Medicos[5].nombre
+	Pacientes[5].medicostratantes[1] = Medicos[1].nombre
+	Pacientes[5].medicostratantes[2] =  Medicos[5].nombre
 	Pacientes[5].vecesenhospital = 5
 
 	Pacientes[6].nombre = "Felipe"
@@ -155,7 +157,8 @@ inicio
 	Pacientes[6].direccion = "O´higgins 2234"
 	Pacientes[6].telefono = 2234565128
 	Pacientes[6].FdUC = "23/3/21"
-	Pacientes[6].medicostratantes[1, 2] = Medicos[3].nombre, Medicos[2].nombre
+	Pacientes[6].medicostratantes[1] = Medicos[3].nombre
+	Pacientes[6].medicostratantes[2] = Medicos[2].nombre
 	Pacientes[6].vecesenhospital = 4
 
 	Pacientes[7].nombre = "jose"
@@ -173,35 +176,35 @@ subrutina inicializacionMedicos()
 	Medicos[1].nombre = "Leandro Sanz"
 	Medicos[1].id = 1
 	Medicos[1].honorario = 400
-	Medicos[1].pacientespormes = Paciente[5].vecesenhospital + Paciente[1].vecesenhospital + Paciente[3].vecesenhospital
+	Medicos[1].pacientespormes = Pacientes[5].nombre + Paciente[1].nombre + Paciente[3].nombre
 	Medicos[1].sm = ServiciosMedicos[2].nombre
 
 
 	Medicos[2].nombre = "Agustin carrocera"
 	Medicos[2].id = 2
 	Medicos[2].honorario = 430
-	Medicos[2].pacientespormes = Paciente[2].vecesenhospital + Paciente[6].vecesenhospital + Paciente[4].vecesenhospital
+	Medicos[2].pacientespormes = Paciente[2].nombre + Paciente[6].nombre + Paciente[4].nombre
 	Medicos[2].sm = ServiciosMedicos[3].nombre
 
 
 	Medicos[3].nombre = "valentin bakker"
 	Medicos[3].id = 3
 	Medicos[3].honorario = 420
-	Medicos[3].pacientespormes = Paciente[6].vecesenhospital + Paciente[3].vecesenhospital
+	Medicos[3].pacientespormes = Paciente[6].nombre + Paciente[3].nombre
 	Medicos[3].sm = ServiciosMedicos[3].nombre
 
 
 	Medicos[4].nombre = "Ginna galli"
 	Medicos[4].id = 4
 	Medicos[4].honorario = 360
-	Medicos[4].pacientespormes = Paciente[2].vecesenhospital
+	Medicos[4].pacientespormes = Paciente[2].nombre
 	Medicos[4].sm = ServiciosMedicos[1].nombre
 
 
 	Medicos[5].nombre = "Dante Jorgensen"
 	Medicos[5].id = 5
 	Medicos[5].honorario = 400
-	Medicos[5].pacientespormes = Paciente[7].vecesenhospital
+	Medicos[5].pacientespormes = Paciente[7].nombre
 	Medicos[5].sm = ServiciosMedicos[1].nombre
 
 
@@ -225,16 +228,20 @@ i : numerico
 
 subrutina medicostratantes ()
 	var
-	i : numerico
+	i, j : numerico
 	inicio
 	
 	desde i = 1 hasta 10
 	{
-		si (Pacientes[i].nombre <> "" and Paciencientes[i].medicostratantes[i] <> "")
+		desde j = 1 hasta 5
 		{
-			imprimir(Pacientes[i].nombre, " es tratado por ", Pacientes[i].medicostratantes[i], "\n")
+		si (Pacientes[i].nombre <> "" and Paciencientes[i].medicostratantes[j] <> "")
+			{
+				imprimir(Pacientes[i].nombre, " es tratado por ", Pacientes[i].medicostratantes[j], "\n")
+			}
+			i = i + 1
+			j = j + 1
 		}
-		i = i + 1
 	}
 	fin
 
@@ -246,23 +253,23 @@ subrutina pacientestratadospormedico()
 		leer (eleccion3)
 		si (eleccion3 == 1)
 		{
-			imprimir("Leandro Sanz tuvo ", Medicos[1].pacientespormes, "este mes\n")
+			imprimir("Leandro Sanz tuvo a los pacientes ", Medicos[1].pacientespormes, "este mes\n")
 		}
 		si (eleccion3 == 2)
 		{
-			imprimir("Agustin Carrocera tuvo ", Medicos[2].pacientespormes, "este mes\n")
+			imprimir("Agustin Carrocera tuvo a los pacientes ", Medicos[2].pacientespormes, "este mes\n")
 		}
 		si (eleccion3 == 3)
 		{
-			imprimir("Valentin Bakker tuvo ", Medicos[3].pacientespormes, "este mes\n")
+			imprimir("Valentin Bakker tuvo a los pacientes ", Medicos[3].pacientespormes, "este mes\n")
 		}
 		si (eleccion3 == 4)
 		{
-			imprimir("Ginna Galli tuvo ", Medicos[4].pacientespormes, "este mes\n")
+			imprimir("Ginna Galli tuvo a los pacientes ", Medicos[4].pacientespormes, "este mes\n")
 		}
 		si (eleccion3 == 5)
 		{
-			imprimir("Dante Jorgensen tuvo ", Medicos[5].pacientespormes, "este mes\n")
+			imprimir("Dante Jorgensen tuvo a los pacientes ", Medicos[5].pacientespormes, "este mes\n")
 		}
     fin
 
@@ -366,7 +373,7 @@ subrutina CrearPaciente ()
 				imprimir("introduzca su ultima consulta\n")
 				leer(Pacientes[indiceespaciovacio].FdUC)
 				imprimir("ingrese al medico tratante\n")
-				leer(Pacientes[indiceespaciovacio].medicotratante)
+				leer(Pacientes[indiceespaciovacio].medicotratante[indiceespaciovacio])
 		}   
 fin
 
