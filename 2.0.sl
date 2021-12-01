@@ -22,6 +22,7 @@ var
 	nombre : cadena
 	honorario : numerico
 	pacientespormes : cadena
+	cantdevisitas : numerico
 	honorariostotal : numerico
 	sm : cadena
 }
@@ -29,7 +30,7 @@ var
 {
 	id : numerico
 	nombre : cadena
-	pacientessmpormes : numerico
+	pacientessmpormes : cadena
 }
 
 inicio
@@ -176,35 +177,40 @@ subrutina inicializacionMedicos()
 	Medicos[1].nombre = "Leandro Sanz"
 	Medicos[1].id = 1
 	Medicos[1].honorario = 400
-	Medicos[1].pacientespormes = Pacientes[5].nombre + Paciente[1].nombre + Paciente[3].nombre
+	Medicos[1].pacientespormes = Pacientes[5].nombre + Pacientes[1].nombre + Pacientes[3].nombre
+	Medicos[1].cantdevisitas = Pacientes[5].vecesenhospital + Pacientes[1].vecesenhospital + Pacientes[3].vecesenhospital
 	Medicos[1].sm = ServiciosMedicos[2].nombre
 
 
 	Medicos[2].nombre = "Agustin carrocera"
 	Medicos[2].id = 2
 	Medicos[2].honorario = 430
-	Medicos[2].pacientespormes = Paciente[2].nombre + Paciente[6].nombre + Paciente[4].nombre
+	Medicos[2].pacientespormes = Pacientes[2].nombre + Pacientes[6].nombre + Pacientes[4].nombre
+	Medicos[2].cantdevisitas = Pacientes[2].vecesenhospital + Pacientes[6].vecesenhospital + Pacientes[4].vecesenhospital
 	Medicos[2].sm = ServiciosMedicos[3].nombre
 
 
 	Medicos[3].nombre = "valentin bakker"
 	Medicos[3].id = 3
 	Medicos[3].honorario = 420
-	Medicos[3].pacientespormes = Paciente[6].nombre + Paciente[3].nombre
+	Medicos[3].pacientespormes = Pacientes[6].nombre + Pacientes[3].nombre
+	Medicos[3].cantdevisitas = Pacientes[6].vecesenhospital + Pacientes[3].vecesenhospital
 	Medicos[3].sm = ServiciosMedicos[3].nombre
 
 
 	Medicos[4].nombre = "Ginna galli"
 	Medicos[4].id = 4
 	Medicos[4].honorario = 360
-	Medicos[4].pacientespormes = Paciente[2].nombre
+	Medicos[4].pacientespormes = Pacientes[2].nombre
+	Medicos[4].cantdevisitas = Pacientes[2].vecesenhospital
 	Medicos[4].sm = ServiciosMedicos[1].nombre
 
 
 	Medicos[5].nombre = "Dante Jorgensen"
 	Medicos[5].id = 5
 	Medicos[5].honorario = 400
-	Medicos[5].pacientespormes = Paciente[7].nombre
+	Medicos[5].pacientespormes = Pacientes[7].nombre
+	Medicos[5].cantdevisitas = Pacientes[7].vecesenhospital
 	Medicos[5].sm = ServiciosMedicos[1].nombre
 
 
@@ -235,7 +241,7 @@ subrutina medicostratantes ()
 	{
 		desde j = 1 hasta 5
 		{
-		si (Pacientes[i].nombre <> "" and Paciencientes[i].medicostratantes[j] <> "")
+		si (Pacientes[i].nombre <> "" and Pacientes[i].medicostratantes[j] <> "")
 			{
 				imprimir(Pacientes[i].nombre, " es tratado por ", Pacientes[i].medicostratantes[j], "\n")
 			}
@@ -253,23 +259,23 @@ subrutina pacientestratadospormedico()
 		leer (eleccion3)
 		si (eleccion3 == 1)
 		{
-			imprimir("Leandro Sanz tuvo a los pacientes ", Medicos[1].pacientespormes, "este mes\n")
+			imprimir("Leandro Sanz tuvo a los pacientes ", Medicos[1].pacientespormes, " este mes\n")
 		}
 		si (eleccion3 == 2)
 		{
-			imprimir("Agustin Carrocera tuvo a los pacientes ", Medicos[2].pacientespormes, "este mes\n")
+			imprimir("Agustin Carrocera tuvo a los pacientes ", Medicos[2].pacientespormes, " este mes\n")
 		}
 		si (eleccion3 == 3)
 		{
-			imprimir("Valentin Bakker tuvo a los pacientes ", Medicos[3].pacientespormes, "este mes\n")
+			imprimir("Valentin Bakker tuvo a los pacientes ", Medicos[3].pacientespormes, " este mes\n")
 		}
 		si (eleccion3 == 4)
 		{
-			imprimir("Ginna Galli tuvo a los pacientes ", Medicos[4].pacientespormes, "este mes\n")
+			imprimir("Ginna Galli tuvo a los pacientes ", Medicos[4].pacientespormes, " este mes\n")
 		}
 		si (eleccion3 == 5)
 		{
-			imprimir("Dante Jorgensen tuvo a los pacientes ", Medicos[5].pacientespormes, "este mes\n")
+			imprimir("Dante Jorgensen tuvo a los pacientes ", Medicos[5].pacientespormes, " este mes\n")
 		}
     fin
 
@@ -283,15 +289,15 @@ subrutina pacientestratadosporServicioMedico ()
 		leer(eleccion1)
 		si (eleccion1 == 1)
 		{
-			imprimir("Pediatria tuvo ", ServiciosMedicos[1].pacientessmpormes, "este mes\n")
+			imprimir("Pediatria tuvo ", ServiciosMedicos[1].pacientessmpormes, " este mes\n")
 		}
 		si (eleccion1 == 2)
 		{
-			imprimir("Traumatologia tuvo ", ServiciosMedicos[2].pacientessmpormes, "este mes\n")
+			imprimir("Traumatologia tuvo ", ServiciosMedicos[2].pacientessmpormes, " este mes\n")
 		}
 		si (eleccion1 == 3)
 		{
-			imprimir("Neurologia tuvo", ServiciosMedicos[3].pacientessmpormes, "este mes\n")
+			imprimir("Neurologia tuvo ", ServiciosMedicos[3].pacientessmpormes, " este mes\n")
 		}
 
     fin
@@ -306,28 +312,28 @@ subrutina listahonorarios()
 		
 			imprimir ("los honorarios de ", Medicos[1].nombre, "son \n")
 			imprimir (Medicos[1].honorario, "\n")
-			imprimir ("Cantidad de Pacientes tratados este mes: ", Medicos[1].pacientespormes, "\n")
-			Medicos[1].honorariostotal = Medicos[1].honorario * Medicos[1].pacientespormes
+			imprimir ("Cantidad de Pacientes tratados este mes: ", Medicos[1].cantdevisitas, "\n")
+			Medicos[1].honorariostotal = Medicos[1].honorario * Medicos[1].cantdevisitas
 			imprimir (Medicos[1].honorariostotal, "\n")
 			imprimir ("los honorarios de ", Medicos[2].nombre, "son \n")
 			imprimir (Medicos[2].honorario, "\n")
-			imprimir ("Cantidad de Pacientes tratados este mes: ", Medicos[2].pacientespormes, "\n")
-			Medicos[2].honorariostotal = Medicos[2].honorario * Medicos[2].pacientespormes
+			imprimir ("Cantidad de Pacientes tratados este mes: ", Medicos[2].cantdevisitas, "\n")
+			Medicos[2].honorariostotal = Medicos[2].honorario * Medicos[2].cantdevisitas
 			imprimir (Medicos[2].honorariostotal, "\n")
 			imprimir ("los honorarios de ", Medicos[3].nombre, "son \n")
 			imprimir (Medicos[3].honorario, "\n")
-			imprimir ("Cantidad de Pacientes tratados este mes: ", Medicos[3].pacientespormes, "\n")
-			Medicos[3].honorariostotal = Medicos[3].honorario * Medicos[3].pacientespormes
+			imprimir ("Cantidad de Pacientes tratados este mes: ", Medicos[3].cantdevisitas, "\n")
+			Medicos[3].honorariostotal = Medicos[3].honorario * Medicos[3].cantdevisitas
 			imprimir (Medicos[4].honorariostotal, "\n")
 			imprimir ("los honorarios de ", Medicos[4].nombre, "son \n")
 			imprimir (Medicos[4].honorario, "\n")
-			imprimir ("Cantidad de Pacientes tratados este mes: ", Medicos[4].pacientespormes, "\n")
-			Medicos[4].honorariostotal = Medicos[4].honorario * Medicos[4].pacientespormes
+			imprimir ("Cantidad de Pacientes tratados este mes: ", Medicos[4].cantdevisitas, "\n")
+			Medicos[4].honorariostotal = Medicos[4].honorario * Medicos[4].cantdevisitas
 			imprimir (Medicos[4].honorariostotal, "\n")
 			imprimir ("los honorarios de ", Medicos[5].nombre, "son \n")
 			imprimir (Medicos[5].honorario, "\n")
-			imprimir ("Cantidad de Pacientes tratados este mes: ", Medicos[5].pacientespormes, "\n")
-			Medicos[5].honorariostotal = Medicos[5].honorario * Medicos[5].pacientespormes
+			imprimir ("Cantidad de Pacientes tratados este mes: ", Medicos[5].cantdevisitas, "\n")
+			Medicos[5].honorariostotal = Medicos[5].honorario * Medicos[5].cantdevisitas
 			imprimir (Medicos[5].honorariostotal, "\n")
 
     fin
@@ -373,7 +379,7 @@ subrutina CrearPaciente ()
 				imprimir("introduzca su ultima consulta\n")
 				leer(Pacientes[indiceespaciovacio].FdUC)
 				imprimir("ingrese al medico tratante\n")
-				leer(Pacientes[indiceespaciovacio].medicotratante[indiceespaciovacio])
+				leer(Pacientes[indiceespaciovacio].medicostratantes[indiceespaciovacio])
 		}   
 fin
 
